@@ -373,46 +373,48 @@
                 return;
             }
 
-            grid.innerHTML = list.map(item => {
-                const cartItem = cart.find(c => c.product.id === item.id);
-                const qtyInCart = cartItem ? cartItem.qty : 0;
+         grid.innerHTML = list.map(item => {
+    const cartItem = cart.find(c => c.product.id === item.id);
+    const qtyInCart = cartItem ? cartItem.qty : 0;
 
-                return `
-            <div class="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative group card-animate">
-                ${item.badge ? `<span class="absolute top-2 right-2 bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full z-10 shadow-xs animate-pulse">${item.badge}</span>` : ''}
-                
-                <div>
-                    <!-- Contenedor del icono con efecto de zoom -->
-                    <div class="w-full h-28 bg-emerald-50/60 rounded-xl flex items-center justify-center text-4xl mb-3 shadow-inner group-hover:scale-110 group-hover:bg-emerald-100/80 transition-all duration-300">
-                        ${item.icon}
-                    </div>
-                    <span class="text-[10px] font-bold uppercase text-emerald-700 tracking-wider bg-emerald-50 px-2 py-0.5 rounded-md inline-block mb-1">${item.unit}</span>
-                    <h4 class="font-bold text-slate-900 text-xs sm:text-sm leading-tight group-hover:text-emerald-700 transition-colors">${item.name}</h4>
-                    ${item.desc ? `<p class="text-[11px] text-slate-500 mt-1 line-clamp-2 leading-tight">${item.desc}</p>` : ''}
+    return `
+        <div class="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-xs hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative group card-animate">
+            ${item.badge ? `<span class="absolute top-2 right-2 bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full z-10 shadow-xs animate-pulse">${item.badge}</span>` : ''}
+            
+            <div>
+                <!-- Contenedor del icono con efecto de zoom -->
+                <div class="w-full h-28 bg-emerald-50/60 rounded-xl flex items-center justify-center text-4xl mb-3 shadow-inner group-hover:scale-110 group-hover:bg-emerald-100/80 transition-all duration-300">
+                    ${item.icon}
                 </div>
-
-                <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                        <span class="text-[10px] text-slate-400 block leading-none">Precio</span>
-                        <span class="text-sm font-extrabold text-emerald-900">${formatCOP(item.price)}</span>
-                    </div>
-
-                    ${qtyInCart === 0 ? `
-                        <button onclick="addToCart(${item.id})" class="bg-emerald-600 hover:bg-emerald-700 active:scale-90 text-white font-bold p-2 rounded-xl transition-all shadow-sm flex items-center justify-center gap-1 text-xs hover:scale-105">
-                            <i data-lucide="plus" class="w-4 h-4"></i>
-                            <span class="hidden sm:inline">Agregar</span>
-                        </button>
-                    ` : `
-                        <div class="flex items-center gap-1.5 bg-emerald-100 border border-emerald-300 p-1 rounded-xl">
-                            <button onclick="updateQty(${item.id}, -1)" class="w-6 h-6 bg-white text-emerald-900 font-extrabold rounded-lg flex items-center justify-center text-xs shadow-xs hover:bg-slate-100 active:scale-75 transition-transform">-</button>
-                            <span class="text-xs font-bold text-emerald-950 w-4 text-center">${qtyInCart}</span>
-                            <button onclick="updateQty(${item.id}, 1)" class="w-6 h-6 bg-emerald-700 text-white font-extrabold rounded-lg flex items-center justify-center text-xs shadow-xs hover:bg-emerald-800 active:scale-75 transition-transform">+</button>
-                        </div>
-                    `}
-                </div>
+                <span class="text-[10px] font-bold uppercase text-emerald-700 tracking-wider bg-emerald-50 px-2 py-0.5 rounded-md inline-block mb-1">${item.unit}</span>
+                <h4 class="font-bold text-slate-900 text-xs sm:text-sm leading-tight group-hover:text-emerald-700 transition-colors">${item.name}</h4>
+                ${item.desc ? `<p class="text-[11px] text-slate-500 mt-1 line-clamp-2 leading-tight">${item.desc}</p>` : ''}
             </div>
-        `;
-            lucide.createIcons();
+
+            <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] text-slate-400 block leading-none">Precio</span>
+                    <span class="text-sm font-extrabold text-emerald-900">${formatCOP(item.price)}</span>
+                </div>
+
+                ${qtyInCart === 0 ? `
+                    <button onclick="addToCart(${item.id})" class="bg-emerald-600 hover:bg-emerald-700 active:scale-90 text-white font-bold p-2 rounded-xl transition-all shadow-sm flex items-center justify-center gap-1 text-xs hover:scale-105">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Agregar</span>
+                    </button>
+                ` : `
+                    <div class="flex items-center gap-1.5 bg-emerald-100 border border-emerald-300 p-1 rounded-xl">
+                        <button onclick="updateQty(${item.id}, -1)" class="w-6 h-6 bg-white text-emerald-900 font-extrabold rounded-lg flex items-center justify-center text-xs shadow-xs hover:bg-slate-100 active:scale-75 transition-transform">-</button>
+                        <span class="text-xs font-bold text-emerald-950 w-4 text-center">${qtyInCart}</span>
+                        <button onclick="updateQty(${item.id}, 1)" class="w-6 h-6 bg-emerald-700 text-white font-extrabold rounded-lg flex items-center justify-center text-xs shadow-xs hover:bg-emerald-800 active:scale-75 transition-transform">+</button>
+                    </div>
+                `}
+            </div>
+        </div>
+    `;
+}).join('');
+
+lucide.createIcons();
         }
 
         // BUSCADOR RÁPIDO

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercado Fresco del Campo | Fruver Directo a tu Hogar</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .bg-gradient-fruver {
+            background: linear-gradient(135deg, #15803D 0%, #166534 60%, #0F5132 100%);
+        }
+    </style>
+</head>
+<body class="text-slate-800 pb-28 md:pb-12">
+
+    <!-- TOP BAR DE PROMOCIÓN -->
+    <div class="bg-amber-500 text-slate-950 text-xs font-bold py-1.5 px-4 text-center flex items-center justify-center gap-2 shadow-sm">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
+        <span>🌿 ¡Entregas el mismo día para pedidos recibidos antes de las 2:00 PM! Domicilio $4.000 COP</span>
+    </div>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 bg-white/95 backdrop-blur-md border-b border-slate-200 z-40 shadow-xs">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div class="bg-emerald-600 text-white p-2.5 rounded-2xl shadow-md flex items-center justify-center">
+                    <i data-lucide="sprout" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-extrabold text-emerald-950 leading-tight tracking-tight">DEL CAMPO<span class="text-emerald-600">FRESCO</span></h1>
+                    <p class="text-[11px] text-slate-500 font-medium">Verduras, Legumbres & Frutas</p>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="flex items-center gap-2">
+                <button onclick="copyStoreLink()" class="hidden sm:flex items-center gap-1.5 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 font-semibold text-xs px-3.5 py-2 rounded-xl transition border border-emerald-200">
+                    <i data-lucide="share-2" class="w-4 h-4 text-emerald-600"></i>
+                    <span>Compartir Tienda</span>
+                </button>
+
+                <!-- Botón Carrito en Header -->
+                <button onclick="toggleCartModal(true)" class="relative bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-2.5 rounded-xl transition shadow-md flex items-center justify-center">
+                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-amber-500 text-slate-950 text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-xs">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- BUSCADOR RÁPIDO -->
+        <div class="max-w-6xl mx-auto px-4 pb-3">
+            <div class="relative">
+                <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Buscar zanahoria, papa, cilantro, combos..." class="w-full pl-10 pr-4 py-2 bg-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 border border-slate-200">
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER PRINCIPAL -->
+    <section class="max-w-6xl mx-auto px-4 mt-4">
+        <div class="bg-gradient-fruver text-white rounded-3xl p-6 sm:p-8 shadow-lg relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-3 z-10 max-w-lg">
+                <span class="bg-white/20 backdrop-blur-md text-emerald-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block">100% Calidad de Campo</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold leading-tight">Mercado Fresco Selección Premium a Domicilio</h2>
+                <p class="text-emerald-100 text-xs sm:text-sm">Seleccionamos las mejores hortalizas, verduras y granos directamente de agricultores locales.</p>
+                
+                <div class="pt-2 flex flex-wrap gap-2">
+                    <span class="bg-emerald-900/60 border border-emerald-400/30 text-white text-xs px-2.5 py-1 rounded-lg flex items-center gap-1">
+                        <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i> Frescura Garantizada
+                    </span>
+                    <span class="bg-emerald-900/60 border border-emerald-400/30 text-white text-xs px-2.5 py-1 rounded-lg flex items-center gap-1">
+                        <i data-lucide="truck" class="w-3.5 h-3.5 text-emerald-400"></i> Pedido Directo a WhatsApp
+                    </span>
+                </div>
+            </div>
+
+            <!-- Botón compartir tienda móvil -->
+            <div class="w-full md:w-auto z-10">
+                <button onclick="copyStoreLink()" class="w-full md:w-auto bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-5 py-3 rounded-2xl shadow-md transition flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
+                    <i data-lucide="share-2" class="w-4 h-4"></i>
+                    <span>Copiar Enlace para Compartir</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORÍAS (TABS HORIZONTALES) -->
+    <section class="max-w-6xl mx-auto px-4 mt-6">
+        <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2" id="categoriesContainer">
+            <!-- Renderizado dinámicamente -->
+        </div>
+    </section>
+
+    <!-- GRILLA DE PRODUCTOS -->
+    <section class="max-w-6xl mx-auto px-4 mt-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 id="currentCategoryTitle" class="text-xl font-bold text-slate-900">Todos los Productos</h3>
+            <span id="productCount" class="text-xs font-semibold text-slate-500">0 ítems</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-5" id="productsGrid">
+            <!-- Productos renderizados por JS -->
+        </div>
+    </section>
+
+    <!-- BARRA INFERIOR FLOTANTE MÓVIL DEL CARRITO -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 z-30 shadow-2xl md:hidden">
+        <button onclick="toggleCartModal(true)" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-between shadow-lg">
+            <div class="flex items-center gap-2">
+                <div class="bg-emerald-700 p-1.5 rounded-lg">
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-white"></i>
+                </div>
+                <span id="mobileCartCount" class="text-xs font-bold bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full">0 ítems</span>
+            </div>
+            <span class="text-xs font-semibold uppercase tracking-wider">Ver Mi Pedido</span>
+            <span id="mobileCartTotal" class="text-base font-extrabold">$0 COP</span>
+        </button>
+    </div>
+
+    <!-- MODAL DEL CARRITO Y FORMULARIO DE PEDIDO -->
+    <div id="cartModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex justify-end">
+        <div class="bg-white w-full max-w-lg h-full flex flex-col justify-between shadow-2xl overflow-y-auto">
+            
+            <!-- Modal Header -->
+            <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-emerald-900 text-white sticky top-0 z-10">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="shopping-cart" class="w-5 h-5 text-emerald-400"></i>
+                    <h3 class="font-bold text-lg">Tu Canasta de Mercado</h3>
+                </div>
+                <button onclick="toggleCartModal(false)" class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Items del Carrito -->
+            <div class="p-4 flex-1 overflow-y-auto space-y-4" id="cartItemsContainer">
+                <!-- Se llena dinámicamente -->
+            </div>
+
+            <!-- Resumen y Formulario de Entrega -->
+            <div class="p-4 bg-slate-50 border-t border-slate-200 space-y-4">
+                
+                <!-- Desglose de Precios -->
+                <div class="space-y-1.5 text-xs text-slate-600 border-b border-slate-200 pb-3">
+                    <div class="flex justify-between">
+                        <span>Subtotal Mercado:</span>
+                        <span id="cartSubtotal" class="font-bold text-slate-800">$0 COP</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Costo de Domicilio:</span>
+                        <span id="cartShipping" class="font-bold text-slate-800">$4.000 COP</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-emerald-950 pt-1">
+                        <span>Total A Pagar:</span>
+                        <span id="cartTotal" class="text-emerald-700 text-lg">$4.000 COP</span>
+                    </div>
+                </div>
+
+                <!-- Formulario Datos de Envío -->
+                <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-3">
+                    <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider flex items-center gap-1">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-600"></i> Datos de Entrega
+                    </h4>
+
+                    <div>
+                        <input type="text" id="custName" required placeholder="Nombre completo" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="tel" id="custPhone" required placeholder="Teléfono WhatsApp" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <input type="text" id="custNeighborhood" required placeholder="Barrio" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div>
+                        <input type="text" id="custAddress" required placeholder="Dirección exacta de entrega (ej: Cra 10 # 45-20 Ap 301)" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">Método de Pago</label>
+                            <select id="paymentMethod" class="w-full px-2.5 py-2 text-xs rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-500">
+                                <option value="Efectivo contra entrega">Efectivo contra entrega</option>
+                                <option value="Nequi">Nequi</option>
+                                <option value="Bancolombia">Bancolombia</option>
+                                <option value="Daviplata">Daviplata</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">Horario Preferido</label>
+                            <select id="deliveryTime" class="w-full px-2.5 py-2 text-xs rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-500">
+                                <option value="Lo antes posible">Lo antes posible</option>
+                                <option value="Mañana (8am - 12pm)">Mañana (8am - 12pm)</option>
+                                <option value="Tarde (2pm - 6pm)">Tarde (2pm - 6pm)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <textarea id="custNotes" rows="2" placeholder="Notas especiales (ej. 'Plátanos maduros', 'Tomates no muy verdes')" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+                        <i data-lucide="send" class="w-4 h-4 text-amber-300"></i>
+                        <span>Enviar Pedido por WhatsApp</span>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST / NOTIFICACIÓN MODAL SIMPLE -->
+    <div id="toast" class="fixed top-20 right-4 bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-xl z-50 hidden flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toastMsg">Mensaje</span>
+    </div>
+
+    <!-- JAVASCRIPT DE LÓGICA DE TIENDA -->
+    <script>
+        // CONFIGURACIÓN DE LA TIENDA
+        const MERCHANT_WHATSAPP = "573013239366"; // Tu número de WhatsApp comerciante
+        const SHIPPING_FEE = 4000; // Valor del domicilio en COP
+
+        // BASE DE DATOS DE PRODUCTOS DIVERSIFICADOS
+        const products = [
+            // COMBOS Y PROMOCIONES
+            { id: 101, name: "Mercado Familiar Semanal", category: "combos", price: 45000, unit: "Combo", icon: "🧺", desc: "Incluye papa, yuca, plátano, zanahoria, cebolla, tomate, cilantro y frutas.", badge: "Ahorro 15%" },
+            { id: 102, name: "Combo Sopa & Sancocho", category: "combos", price: 18000, unit: "Combo", icon: "🍲", desc: "Papa sabanera, yuca, plátano verde, mazorca, arracacha y cilantro." },
+            { id: 103, name: "Combo Ensalada Saludable", category: "combos", price: 15000, unit: "Combo", icon: "🥗", desc: "Lechuga crespa, pepino cohombro, tomate chonto, aguacate y limón." },
+
+            // HORTALIZAS Y VERDURAS
+            { id: 201, name: "Zanahoria Seleccionada", category: "hortalizas", price: 1800, unit: "Libra", icon: "🥕" },
+            { id: 202, name: "Lechuga Crespa Fresca", category: "hortalizas", price: 2500, unit: "Unidad", icon: "🥬" },
+            { id: 203, name: "Brócoli Verde", category: "hortalizas", price: 3200, unit: "Unidad", icon: "🥦" },
+            { id: 204, name: "Espinaca Bogotá", category: "hortalizas", price: 2200, unit: "Atado", icon: "🍃" },
+            { id: 205, name: "Pepino Cohombro", category: "hortalizas", price: 1500, unit: "Libra", icon: "🥒" },
+            { id: 206, name: "Pimentón Rojo", category: "hortalizas", price: 2800, unit: "Libra", icon: "🫑" },
+
+            // TUBÉRCULOS Y LEGUMBRES
+            { id: 301, name: "Papa Pastusa / Sabanera", category: "tuberculos", price: 2000, unit: "Kilo", icon: "🥔" },
+            { id: 302, name: "Yuca Seleccionada", category: "tuberculos", price: 2500, unit: "Kilo", icon: "🍠" },
+            { id: 303, name: "Plátano Verde Hartón", category: "tuberculos", price: 3000, unit: "Kilo", icon: "🍌" },
+            { id: 304, name: "Plátano Maduro", category: "tuberculos", price: 3000, unit: "Kilo", icon: "🍌" },
+            { id: 305, name: "Fríjol Cargamanto", category: "tuberculos", price: 4800, unit: "Libra", icon: "🫘" },
+            { id: 306, name: "Lenteja Seleccionada", category: "tuberculos", price: 3500, unit: "Libra", icon: "🫘" },
+
+            // FRUTAS Y TOMATES / CEBOLLAS
+            { id: 401, name: "Tomate Chonto Rojo", category: "frutas_tomates", price: 2200, unit: "Kilo", icon: "🍅" },
+            { id: 402, name: "Cebolla Larga / Rama", category: "frutas_tomates", price: 1800, unit: "Atado", icon: "🧅" },
+            { id: 403, name: "Cebolla Cabezona Blanca", category: "frutas_tomates", price: 2400, unit: "Kilo", icon: "🧅" },
+            { id: 404, name: "Cebolla Roja / Ocañera", category: "frutas_tomates", price: 2800, unit: "Kilo", icon: "🧅" },
+            { id: 405, name: "Limón Tahití Jugoso", category: "frutas_tomates", price: 2500, unit: "Kilo", icon: "🍋" },
+            { id: 406, name: "Aguacate Hass / papelillo", category: "frutas_tomates", price: 4500, unit: "Kilo", icon: "🥑" },
+
+            // HIERBAS Y AROMÁTICAS
+            { id: 501, name: "Cilantro Fresco", category: "hierbas", price: 1000, unit: "Atado", icon: "🌿" },
+            { id: 502, name: "Perejil Liso / Crespo", category: "hierbas", price: 1200, unit: "Atado", icon: "🌿" },
+            { id: 503, name: "Albahaca Fresca", category: "hierbas", price: 1500, unit: "Atado", icon: "🌿" },
+            { id: 504, name: "Apio en Rama", category: "hierbas", price: 2000, unit: "Atado", icon: "🌿" }
+        ];
+
+        // CATEGORÍAS
+        const categories = [
+            { id: "all", name: "Todos", icon: "grid" },
+            { id: "combos", name: "🧺 Combos Promocionales", icon: "package" },
+            { id: "hortalizas", name: "🥦 Hortalizas & Verduras", icon: "leaf" },
+            { id: "tuberculos", name: "🥔 Tubérculos & Legumbres", icon: "box" },
+            { id: "frutas_tomates", name: "🍅 Tomates & Cebollas", icon: "apple" },
+            { id: "hierbas", name: "🌿 Hierbas & Aromáticas", icon: "flower2" }
+        ];
+
+        // ESTADO DE LA APLICACIÓN
+        let currentCategory = "all";
+        let cart = []; // Array de { product, qty }
+
+        // INICIALIZACIÓN
+        window.onload = function() {
+            renderCategories();
+            renderProducts();
+            lucide.createIcons();
+        };
+
+        // RENDERIZAR CATEGORÍAS
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat.id}')" class="px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 ${currentCategory === cat.id ? 'bg-emerald-700 text-white shadow-md' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'}">
+                    <span>${cat.name}</span>
+                </button>
+            `).join('');
+        }
+
+        // CAMBIAR CATEGORÍA
+        function setCategory(catId) {
+            currentCategory = catId;
+            renderCategories();
+            renderProducts();
+            const selectedCat = categories.find(c => c.id === catId);
+            document.getElementById('currentCategoryTitle').innerText = selectedCat ? selectedCat.name : "Todos los Productos";
+        }
+
+        // RENDERIZAR PRODUCTOS
+        function renderProducts(filtered = null) {
+            const list = filtered || (currentCategory === "all" ? products : products.filter(p => p.category === currentCategory));
+            const grid = document.getElementById('productsGrid');
+            document.getElementById('productCount').innerText = `${list.length} ítems`;
+
+            if (list.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-400">
+                        <i data-lucide="package-search" class="w-12 h-12 mx-auto mb-2 text-slate-300"></i>
+                        <p class="text-sm">No encontramos productos con ese nombre.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            grid.innerHTML = list.map(item => {
+                const cartItem = cart.find(c => c.product.id === item.id);
+                const qtyInCart = cartItem ? cartItem.qty : 0;
+
+                return `
+                    <div class="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-xs hover:shadow-md transition flex flex-col justify-between relative group">
+                        ${item.badge ? `<span class="absolute top-2 right-2 bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full z-10 shadow-xs">${item.badge}</span>` : ''}
+                        
+                        <div>
+                            <div class="w-full h-28 bg-emerald-50/60 rounded-xl flex items-center justify-center text-4xl mb-3 shadow-inner">
+                                ${item.icon}
+                            </div>
+                            <span class="text-[10px] font-bold uppercase text-emerald-700 tracking-wider bg-emerald-50 px-2 py-0.5 rounded-md inline-block mb-1">${item.unit}</span>
+                            <h4 class="font-bold text-slate-900 text-xs sm:text-sm leading-tight">${item.name}</h4>
+                            ${item.desc ? `<p class="text-[11px] text-slate-500 mt-1 line-clamp-2 leading-tight">${item.desc}</p>` : ''}
+                        </div>
+
+                        <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block leading-none">Precio</span>
+                                <span class="text-sm font-extrabold text-emerald-900">${formatCOP(item.price)}</span>
+                            </div>
+
+                            ${qtyInCart === 0 ? `
+                                <button onclick="addToCart(${item.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-2 rounded-xl transition shadow-sm flex items-center justify-center gap-1 text-xs">
+                                    <i data-lucide="plus" class="w-4 h-4"></i>
+                                    <span class="hidden sm:inline">Agregar</span>
+                                </button>
+                            ` : `
+                                <div class="flex items-center gap-1.5 bg-emerald-100 border border-emerald-300 p-1 rounded-xl">
+                                    <button onclick="updateQty(${item.id}, -1)" class="w-6 h-6 bg-white text-emerald-900 font-extrabold rounded-lg flex items-center justify-center text-xs shadow-xs hover:bg-slate-100">-</button>
+                                    <span class="text-xs font-bold text-emerald-950 w-4 text-center">${qtyInCart}</span>
+                                    <button onclick="updateQty(${item.id}, 1)" class="w-6 h-6 bg-emerald-700 text-white font-extrabold rounded-lg flex items-center justify-center text-xs shadow-xs hover:bg-emerald-800">+</button>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // BUSCADOR RÁPIDO
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (!query) {
+                renderProducts();
+                return;
+            }
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query) || (p.desc && p.desc.toLowerCase().includes(query)));
+            renderProducts(filtered);
+        }
+
+        // AGREGAR AL CARRITO
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(c => c.product.id === productId);
+
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ product, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`Agregado: ${product.name}`);
+        }
+
+        // MODIFICAR CANTIDADES
+        function updateQty(productId, change) {
+            const itemIndex = cart.findIndex(c => c.product.id === productId);
+            if (itemIndex > -1) {
+                cart[itemIndex].qty += change;
+                if (cart[itemIndex].qty <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        // ACTUALIZAR INTERFAZ DEL CARRITO
+        function updateCartUI() {
+            // Recalcular productos en la grilla
+            renderProducts();
+
+            const totalCount = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            const subtotal = cart.reduce((acc, curr) => acc + (curr.product.price * curr.qty), 0);
+            const grandTotal = subtotal > 0 ? subtotal + SHIPPING_FEE : 0;
+
+            // Badges y totales
+            document.getElementById('cartBadge').innerText = totalCount;
+            document.getElementById('mobileCartCount').innerText = `${totalCount} ítems`;
+            document.getElementById('mobileCartTotal').innerText = formatCOP(grandTotal);
+            document.getElementById('cartSubtotal').innerText = formatCOP(subtotal);
+            document.getElementById('cartShipping').innerText = formatCOP(subtotal > 0 ? SHIPPING_FEE : 0);
+            document.getElementById('cartTotal').innerText = formatCOP(grandTotal);
+
+            // Container Items en Modal
+            const itemsContainer = document.getElementById('cartItemsContainer');
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `
+                    <div class="py-16 text-center text-slate-400">
+                        <i data-lucide="shopping-bag" class="w-16 h-16 mx-auto mb-3 text-slate-300"></i>
+                        <p class="font-bold text-slate-600">Tu canasta está vacía</p>
+                        <p class="text-xs text-slate-400 mt-1">Selecciona verduras y productos para tu pedido.</p>
+                    </div>
+                `;
+            } else {
+                itemsContainer.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">${item.product.icon}</span>
+                            <div>
+                                <h5 class="font-bold text-xs text-slate-900">${item.product.name}</h5>
+                                <span class="text-[11px] text-slate-500">${formatCOP(item.product.price)} / ${item.product.unit}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-1.5 bg-white border border-slate-300 p-1 rounded-lg">
+                                <button onclick="updateQty(${item.product.id}, -1)" class="w-5 h-5 bg-slate-100 text-slate-800 font-bold rounded flex items-center justify-center text-xs">-</button>
+                                <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                                <button onclick="updateQty(${item.product.id}, 1)" class="w-5 h-5 bg-emerald-600 text-white font-bold rounded flex items-center justify-center text-xs">+</button>
+                            </div>
+                            <span class="font-extrabold text-xs text-emerald-950 w-16 text-right">${formatCOP(item.product.price * item.qty)}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            lucide.createIcons();
+        }
+
+        // ABRIR / CERRAR MODAL CARRITO
+        function toggleCartModal(show) {
+            const modal = document.getElementById('cartModal');
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // ENVIAR PEDIDO A WHATSAPP
+        function submitOrder(e) {
+            e.preventDefault();
+            if (cart.length === 0) {
+                alert("Tu canasta está vacía. Agrega productos antes de confirmar.");
+                return;
+            }
+
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const neighborhood = document.getElementById('custNeighborhood').value;
+            const address = document.getElementById('custAddress').value;
+            const payment = document.getElementById('paymentMethod').value;
+            const deliveryTime = document.getElementById('deliveryTime').value;
+            const notes = document.getElementById('custNotes').value;
+
+            const subtotal = cart.reduce((acc, curr) => acc + (curr.product.price * curr.qty), 0);
+            const grandTotal = subtotal + SHIPPING_FEE;
+
+            // Formatear Mensaje de WhatsApp
+            let msg = `🛒 *NUEVO PEDIDO DE MERCADO DE CAMPO*\n`;
+            msg += `------------------------------------\n`;
+            msg += `👤 *Cliente:* ${name}\n`;
+            msg += `📞 *Teléfono:* ${phone}\n`;
+            msg += `📍 *Dirección:* ${address} (${neighborhood})\n`;
+            msg += `💳 *Método de Pago:* ${payment}\n`;
+            msg += `🕒 *Horario Deseado:* ${deliveryTime}\n`;
+            if (notes) msg += `📝 *Notas:* ${notes}\n`;
+            msg += `------------------------------------\n`;
+            msg += `📋 *PRODUCTOS:* \n\n`;
+
+            cart.forEach(item => {
+                msg += `• *${item.product.name}* x${item.qty} ${item.product.unit} -> ${formatCOP(item.product.price * item.qty)}\n`;
+            });
+
+            msg += `\n------------------------------------\n`;
+            msg += `💵 *Subtotal:* ${formatCOP(subtotal)}\n`;
+            msg += `🛵 *Domicilio:* ${formatCOP(SHIPPING_FEE)}\n`;
+            msg += `💰 *TOTAL A PAGAR:* ${formatCOP(grandTotal)}\n`;
+            msg += `------------------------------------\n`;
+            msg += `¡Quedo atento a la confirmación de mi pedido! 🌿`;
+
+            const whatsappUrl = `https://wa.me/${MERCHANT_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // COPIAR ENLACE DE LA TIENDA
+        function copyStoreLink() {
+            const url = window.location.href;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast("¡Enlace de tienda copiado al portapapeles!");
+                }).catch(() => fallbackCopy(url));
+            } else {
+                fallbackCopy(url);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const input = document.createElement('input');
+            input.value = text;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            showToast("¡Enlace copiado exitosamente!");
+        }
+
+        // FORMATO MONEDA COP
+        function formatCOP(amount) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // TOAST NOTIFICACIÓN
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -24,7 +24,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F8FAFC;
+            background: radial-gradient(circle at 50% 0%, #E8F5E9 0%, #F1F5F9 50%, #E2E8F0 100%);
+            background-attachment: fixed;
         }
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
@@ -93,7 +94,7 @@
         <div class="max-w-6xl mx-auto px-4 pb-3">
             <div class="relative">
                 <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
-                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Buscar zanahoria, papa, cilantro, combos..." class="w-full pl-10 pr-4 py-2 bg-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 border border-slate-200">
+                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Buscar papa, zanahoria, fresa, aguacate..." class="w-full pl-10 pr-4 py-2 bg-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 border border-slate-200">
             </div>
         </div>
     </header>
@@ -102,23 +103,18 @@
     <section class="max-w-6xl mx-auto px-4 mt-4">
         <div class="bg-gradient-fruver text-white rounded-3xl p-6 sm:p-8 shadow-lg relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 group">
             
-            <!-- Elemento decorativo de fondo en movimiento -->
             <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-2xl animate-pulse pointer-events-none"></div>
 
             <div class="space-y-3 z-10 max-w-lg">
-                <!-- Badge palpitante -->
                 <span class="bg-white/20 backdrop-blur-md text-emerald-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 animate-pulse">
                     <span class="animate-bounce inline-block text-base">🥦</span> 100% Calidad de Campo
                 </span>
                 
-                <!-- Título con resplandor suave -->
                 <h2 class="text-2xl sm:text-4xl font-extrabold leading-tight">
-                   🥗   <span class="text-amber-300 drop-shadow-sm"
-                         >SELECCIÒN PREMIUM</span> a Domicilio - los precios suelen variar durante la semana. 
+                    🥗 <span class="text-amber-300 drop-shadow-sm">SELECCIÓN PREMIUM</span> a Domicilio - los precios incluyen ajuste de calidad.
                 </h2>
-                <p class="text-emerald-100 text-xs sm:text-sm">Seleccionamos las mejores hortalizas, verduras y granos directamente de agricultores locales.</p>
+                <p class="text-emerald-100 text-xs sm:text-sm">Seleccionamos las mejores hortalizas, verduras, frutas y granos directamente de agricultores locales.</p>
                 
-                <!-- Badges informativos -->
                 <div class="pt-2 flex flex-wrap gap-2">
                     <span class="bg-emerald-900/60 border border-emerald-400/30 text-white text-xs px-2.5 py-1 rounded-lg flex items-center gap-1.5 shadow-xs">
                         <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 animate-spin"></i> Frescura Garantizada
@@ -129,7 +125,6 @@
                 </div>
             </div>
 
-            <!-- Botón interactivo -->
             <div class="w-full md:w-auto z-10">
                 <button onclick="copyStoreLink()" class="w-full md:w-auto bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-950 font-extrabold px-5 py-3.5 rounded-2xl shadow-lg hover:shadow-amber-400/20 transition-all duration-300 flex items-center justify-center gap-2 text-xs uppercase tracking-wider group-hover:scale-105">
                     <i data-lucide="share-2" class="w-4 h-4 animate-pulse"></i>
@@ -176,7 +171,6 @@
     <div id="cartModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex justify-end">
         <div class="bg-white w-full max-w-lg h-full flex flex-col justify-between shadow-2xl overflow-y-auto">
             
-            <!-- Modal Header -->
             <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-emerald-900 text-white sticky top-0 z-10">
                 <div class="flex items-center gap-2">
                     <i data-lucide="shopping-cart" class="w-5 h-5 text-emerald-400"></i>
@@ -187,15 +181,12 @@
                 </button>
             </div>
 
-            <!-- Items del Carrito -->
             <div class="p-4 flex-1 overflow-y-auto space-y-4" id="cartItemsContainer">
                 <!-- Se llena dinámicamente -->
             </div>
 
-            <!-- Resumen y Formulario de Entrega -->
             <div class="p-4 bg-slate-50 border-t border-slate-200 space-y-4">
                 
-                <!-- Desglose de Precios -->
                 <div class="space-y-1.5 text-xs text-slate-600 border-b border-slate-200 pb-3">
                     <div class="flex justify-between">
                         <span>Subtotal Mercado:</span>
@@ -206,12 +197,11 @@
                         <span id="cartShipping" class="font-bold text-slate-800">$12.000 COP</span>
                     </div>
                     <div class="flex justify-between text-base font-extrabold text-emerald-950 pt-1">
-                        <span>Total A Pagar en perimetro urbano :</span>
+                        <span>Total A Pagar (Perímetro Urbano):</span>
                         <span id="cartTotal" class="text-emerald-700 text-lg">$12.000 COP</span>
                     </div>
                 </div>
 
-                <!-- Formulario Datos de Envío -->
                 <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-3">
                     <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider flex items-center gap-1">
                         <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-600"></i> Datos de Entrega
@@ -274,45 +264,181 @@
     <script>
         // CONFIGURACIÓN DE LA TIENDA
         const MERCHANT_WHATSAPP = "573013239366"; 
-        const SHIPPING_FEE = 12000; // Valor del domicilio en COP corregido
+        const SHIPPING_FEE = 12000; // Valor del domicilio en COP
 
-        // BASE DE DATOS DE PRODUCTOS DIVERSIFICADOS
+        // BASE DE DATOS DE PRODUCTOS CON PRECIOS OFICIALES + 20% DE INCREMENTO
         const products = [
             // COMBOS Y PROMOCIONES
-            { id: 101, name: "Mercado Familiar Semanal", category: "combos", price: 45000, unit: "Combo", icon: "🧺", desc: "Incluye papa, yuca, plátano, zanahoria, cebolla, tomate, cilantro y frutas.", badge: "Ahorro 15%" },
-            { id: 102, name: "Combo Sopa & Sancocho", category: "combos", price: 18000, unit: "Combo", icon: "🍲", desc: "Papa sabanera, yuca, plátano verde, mazorca, arracacha y cilantro." },
-            { id: 103, name: "Combo Ensalada Saludable", category: "combos", price: 15000, unit: "Combo", icon: "🥗", desc: "Lechuga crespa, pepino cohombro, tomate chonto, aguacate y limón." },
+            { id: 101, name: "Mercado Familiar Semanal", category: "combos", price: 54000, unit: "Combo", icon: "🧺", desc: "Incluye papa, yuca, plátano, zanahoria, cebolla, tomate, cilantro y frutas.", badge: "Ahorro 15%" },
+            { id: 102, name: "Combo Sopa & Sancocho", category: "combos", price: 21600, unit: "Combo", icon: "🍲", desc: "Papa sabanera, yuca, plátano verde, mazorca, arracacha y cilantro." },
+            { id: 103, name: "Combo Ensalada Saludable", category: "combos", price: 18000, unit: "Combo", icon: "🥗", desc: "Lechuga crespa, pepino cohombro, tomate chonto, aguacate y limón." },
 
             // HORTALIZAS Y VERDURAS
-            { id: 201, name: "Zanahoria Seleccionada", category: "hortalizas", price: 20800, unit: "Libra", icon: "🥕" },
-            { id: 202, name: "Lechuga Crespa Fresca", category: "hortalizas", price: 2500, unit: "Unidad", icon: "🥬" },
-            { id: 203, name: "Brócoli Verde", category: "hortalizas", price: 3200, unit: "Unidad", icon: "🥦" },
-            { id: 204, name: "Espinaca Bogotá", category: "hortalizas", price: 2200, unit: "Atado", icon: "🍃" },
-            { id: 205, name: "Pepino Cohombro", category: "hortalizas", price: 1500, unit: "Libra", icon: "🥒" },
-            { id: 206, name: "Pimentón Rojo", category: "hortalizas", price: 2800, unit: "Libra", icon: "🫑" },
+            { id: 201, name: "Acelga", category: "hortalizas", price: 12000, unit: "Kilo", icon: "🥬" },
+            { id: 202, name: "Acelga China", category: "hortalizas", price: 16800, unit: "Kilo", icon: "🥬" },
+            { id: 203, name: "Agraz", category: "hortalizas", price: 60000, unit: "Kilo", icon: "🍇" },
+            { id: 204, name: "Ahuyama", category: "hortalizas", price: 3600, unit: "Kilo", icon: "🥗" },
+            { id: 205, name: "Aji Topito", category: "hortalizas", price: 9600, unit: "Kilo", icon: "🌶️" },
+            { id: 206, name: "Ajo", category: "hortalizas", price: 12000, unit: "Kilo", icon: "🧄" },
+            { id: 207, name: "Alcachofa", category: "hortalizas", price: 42000, unit: "Kilo", icon: "🥬" },
+            { id: 208, name: "Apio", category: "hortalizas", price: 6000, unit: "Kilo", icon: "🌿" },
+            { id: 209, name: "Arracacha", category: "hortalizas", price: 12000, unit: "Kilo", icon: "🍠" },
+            { id: 210, name: "Arveja Verde", category: "hortalizas", price: 16800, unit: "Kilo", icon: "🫛" },
+            { id: 211, name: "Arveja Verde Desgranada", category: "hortalizas", price: 16800, unit: "Paq x 500g", icon: "🫛" },
+            { id: 212, name: "Batata Rosada", category: "hortalizas", price: 14400, unit: "Kilo", icon: "🍠" },
+            { id: 213, name: "Berenjena", category: "hortalizas", price: 7200, unit: "Kilo", icon: "🍆" },
+            { id: 214, name: "Borojó", category: "hortalizas", price: 3600, unit: "Paq x 200g", icon: "🥥" },
+            { id: 215, name: "Brócoli", category: "hortalizas", price: 14400, unit: "Kilo", icon: "🥦" },
+            { id: 216, name: "Bulbo de Hinojo", category: "hortalizas", price: 36000, unit: "Kilo", icon: "🧅" },
+            { id: 217, name: "Calabacín Zucchini V-A", category: "hortalizas", price: 9600, unit: "Kilo", icon: "🥒" },
+            { id: 218, name: "Calabaza", category: "hortalizas", price: 12000, unit: "Unidad", icon: "🎃" },
+            { id: 219, name: "Cebolla Blanca", category: "hortalizas", price: 6000, unit: "Kilo", icon: "🧅" },
+            { id: 220, name: "Cebolla Puerro", category: "hortalizas", price: 16800, unit: "Kilo", icon: "🧅" },
+            { id: 221, name: "Cebolla Roja", category: "hortalizas", price: 6000, unit: "Kilo", icon: "🧅" },
+            { id: 222, name: "Cebollín", category: "hortalizas", price: 9600, unit: "Kilo", icon: "🧅" },
+            { id: 223, name: "Cebollín Chino", category: "hortalizas", price: 18000, unit: "Kilo", icon: "🧅" },
+            { id: 224, name: "Champiñón", category: "hortalizas", price: 26400, unit: "Paq x 500g", icon: "🍄" },
+            { id: 225, name: "Champiñón Portobello", category: "hortalizas", price: 30000, unit: "Bandeja", icon: "🍄" },
+            { id: 226, name: "Chuguas", category: "hortalizas", price: 7200, unit: "Libra", icon: "🥔" },
+            { id: 227, name: "Cilantro", category: "hortalizas", price: 18000, unit: "Kilo", icon: "🌿" },
+            { id: 228, name: "Cogollo Europeo", category: "hortalizas", price: 12000, unit: "Paq x 3unid", icon: "🥬" },
+            { id: 229, name: "Col China", category: "hortalizas", price: 16800, unit: "Kilo", icon: "🥬" },
+            { id: 230, name: "Coles de Bruselas", category: "hortalizas", price: 8400, unit: "Paq x200grs", icon: "🥬" },
+            { id: 231, name: "Coliflor", category: "hortalizas", price: 14400, unit: "Kilo", icon: "🥦" },
+            { id: 232, name: "Eneldo", category: "hortalizas", price: 36000, unit: "Kilo", icon: "🌿" },
+            { id: 233, name: "Espárrago", category: "hortalizas", price: 33600, unit: "Paq x 500g", icon: "🥬" },
+            { id: 234, name: "Espinacas", category: "hortalizas", price: 14400, unit: "Kilo", icon: "🍃" },
+            { id: 235, name: "Eucalipto Fresco", category: "hortalizas", price: 36000, unit: "Kilo", icon: "🌿" },
+            { id: 236, name: "Guascas Frescas", category: "hortalizas", price: 36000, unit: "Kilo", icon: "🌿" },
+            { id: 237, name: "Guatila Clara", category: "hortalizas", price: 9600, unit: "Kilo", icon: "🥔" },
+            { id: 238, name: "Guatila Oscura", category: "hortalizas", price: 9600, unit: "Kilo", icon: "🥔" },
+            { id: 239, name: "Habichuela", category: "hortalizas", price: 14400, unit: "Kilo", icon: "🫛" },
+            { id: 240, name: "Jengibre", category: "hortalizas", price: 28800, unit: "Kilo", icon: "🫚" },
+            { id: 241, name: "Kale", category: "hortalizas", price: 12000, unit: "Band x 200grs", icon: "🥬" },
+            { id: 242, name: "Laurel Fresco", category: "hortalizas", price: 36000, unit: "Kilo", icon: "🌿" },
+            { id: 243, name: "Lechuga Batavia", category: "hortalizas", price: 7200, unit: "Kilo", icon: "🥬" },
+            { id: 244, name: "Lechuga Rizada Morada", category: "hortalizas", price: 6000, unit: "Unidad", icon: "🥬" },
+            { id: 245, name: "Lechuga Rizada Verde", category: "hortalizas", price: 4800, unit: "Unidad", icon: "🥬" },
+            { id: 246, name: "Lechuga Romana", category: "hortalizas", unit: "Unidad", price: 6000, icon: "🥬" },
+            { id: 247, name: "Maíz de Mute", category: "hortalizas", price: 8400, unit: "Paq x 1lb", icon: "🌽" },
+            { id: 248, name: "Maíz Desgranado", category: "hortalizas", price: 4800, unit: "Paq x500grs", icon: "🌽" },
+            { id: 249, name: "Malanga", category: "hortalizas", price: 9600, unit: "Kilo", icon: "🥔" },
+            { id: 250, name: "Masa Arepa Santandereana", category: "hortalizas", price: 7200, unit: "Paq x 1lb", icon: "🫓" },
+            { id: 251, name: "Mazo de ajo morado", category: "hortalizas", price: 14400, unit: "Mazo", icon: "🧄" },
+            { id: 252, name: "Mazorca", category: "hortalizas", price: 1200, unit: "Unidad", icon: "🌽" },
+            { id: 253, name: "Mazorca Bogotana", category: "hortalizas", price: 14400, unit: "Kilo", icon: "🌽" },
+            { id: 254, name: "Mazorca Dulce", category: "hortalizas", price: 14400, unit: "Bandeja x3und", icon: "🌽" },
+            { id: 255, name: "Mazorca morada peruana", category: "hortalizas", price: 36000, unit: "Kilo", icon: "🌽" },
+            { id: 256, name: "Mix Pimentones de colores", category: "hortalizas", price: 8400, unit: "Libra", icon: "🫑" },
 
-            // TUBÉRCULOS Y LEGUMBRES
-            { id: 301, name: "Papa Pastusa / Sabanera", category: "tuberculos", price: 6000, unit: "Kilo", icon: "🥔" },
-            { id: 302, name: "Yuca Seleccionada", category: "tuberculos", price: 2500, unit: "Kilo", icon: "🍠" },
-            { id: 303, name: "Plátano Verde", category: "tuberculos", price: 1800, unit: "Kilo", icon: "🍌" },
-            { id: 304, name: "Plátano Maduro", category: "tuberculos", price: 1800, unit: "Kilo", icon: "🍌" },
-            { id: 305, name: "Fríjol Cargamanto", category: "tuberculos", price: 4800, unit: "Libra", icon: "🫘" },
-            { id: 306, name: "Lenteja Seleccionada", category: "tuberculos", price: 3500, unit: "Libra", icon: "🫘" },
+            // TUBÉRCULOS Y FRUTOS DE CAMPO
+            { id: 301, name: "Name espino", category: "tuberculos", price: 12000, unit: "Kilo", icon: "🥔" },
+            { id: 302, name: "Papa Amarilla", category: "tuberculos", price: 9600, unit: "Kilo", icon: "🥔" },
+            { id: 303, name: "Papa Común Blanca", category: "tuberculos", price: 3600, unit: "Kilo", icon: "🥔" },
+            { id: 304, name: "Papa Lavada Selecta", category: "tuberculos", price: 6000, unit: "Kilo", icon: "🥔" },
+            { id: 305, name: "Papa Pastusa", category: "tuberculos", price: 6000, unit: "Kilo", icon: "🥔" },
+            { id: 306, name: "Pepino", category: "tuberculos", price: 4800, unit: "Kilo", icon: "🥒" },
+            { id: 307, name: "Perejil crespo", category: "tuberculos", price: 24000, unit: "Kilo", icon: "🌿" },
+            { id: 308, name: "Perejil liso", category: "tuberculos", price: 24000, unit: "Kilo", icon: "🌿" },
+            { id: 309, name: "Picante", category: "tuberculos", price: 4800, unit: "Botella", icon: "🌶️" },
+            { id: 310, name: "Picante Fresco", category: "tuberculos", price: 36000, unit: "Kilo", icon: "🌶️" },
+            { id: 311, name: "Pimentón Amarillo", category: "tuberculos", price: 16800, unit: "Kilo", icon: "🫑" },
+            { id: 312, name: "Pimentón Rojo", category: "tuberculos", price: 12000, unit: "Kilo", icon: "🫑" },
+            { id: 313, name: "Pimentón Verde", category: "tuberculos", price: 12000, unit: "Kilo", icon: "🫑" },
+            { id: 314, name: "Plátano amarillo", category: "tuberculos", price: 1800, unit: "Unidad", icon: "🍌" },
+            { id: 315, name: "Plátano verde", category: "tuberculos", price: 1800, unit: "Unidad", icon: '<span class="inline-block filter hue-rotate-90 saturate-200">🍌</span>' },
+            { id: 316, name: "Guineo Maduro tipo Export", category: "tuberculos", price: 5400, unit: "Kilo", icon: "🍌" },
+            { id: 317, name: "Guineo Verde", category: "tuberculos", price: 3000, unit: "Kilo", icon: "🍌" },
+            { id: 318, name: "Queso costeño bajo en sal", category: "tuberculos", price: 31200, unit: "Kilo", icon: "🧀" },
+            { id: 319, name: "Rábano", category: "tuberculos", price: 14400, unit: "Kilo", icon: "🥔" },
+            { id: 320, name: "Rábano Blanco", category: "tuberculos", price: 24000, unit: "Kilo", icon: "🥔" },
+            { id: 321, name: "Raíz China", category: "tuberculos", price: 4800, unit: "Paq x250grs", icon: "🌱" },
+            { id: 322, name: "Remolacha", category: "tuberculos", price: 7200, unit: "Kilo", icon: "🥔" },
+            { id: 323, name: "Repollo Blanco", category: "tuberculos", price: 6000, unit: "Kilo", icon: "🥬" },
+            { id: 324, name: "Repollo Morado", category: "tuberculos", price: 7200, unit: "Kilo", icon: "🥬" },
+            { id: 325, name: "Romero", category: "tuberculos", price: 36000, unit: "Kilo", icon: "🌿" },
+            { id: 326, name: "Rugula", category: "tuberculos", price: 12000, unit: "Bandeja", icon: "🌿" },
+            { id: 327, name: "Sabila", category: "tuberculos", price: 3000, unit: "Penca", icon: "🌿" },
+            { id: 328, name: "Semilla de Marañón con sal", category: "tuberculos", price: 9600, unit: "100gr", icon: "🥜" },
+            { id: 329, name: "Tomate Cherry", category: "tuberculos", price: 14400, unit: "Caja x 500g", icon: "🍅" },
+            { id: 330, name: "Tomate Chonto", category: "tuberculos", price: 7200, unit: "Kilo", icon: "🍅" },
+            { id: 331, name: "Tomate de Árbol", category: "tuberculos", price: 7200, unit: "Kilo", icon: "🍅" },
+            { id: 332, name: "Tomate Milano", category: "tuberculos", price: 9600, unit: "Kilo", icon: "🍅" },
+            { id: 333, name: "Tomate Uvalina", category: "tuberculos", price: 14400, unit: "Bandeja", icon: "🍅" },
+            { id: 334, name: "Yacón", category: "tuberculos", price: 16800, unit: "Kilo", icon: "🥔" },
+            { id: 335, name: "Yuca Tierra Alta", category: "tuberculos", price: 4800, unit: "Kilo", icon: "🍠" },
+            { id: 336, name: "Zanahoria", category: "tuberculos", price: 3600, unit: "Kilo", icon: "🥕" },
 
-            // FRUTAS Y TOMATES / CEBOLLAS
-            { id: 401, name: "Tomate Chonto Rojo", category: "frutas_tomates", price: 7200, unit: "Kilo", icon: "🍅" },
-            { id: 402, name: "Cebolla Larga / Rama", category: "frutas_tomates", price: 1800, unit: "Atado", icon: "🧅" },
-            { id: 403, name: "Cebolla Cabezona Blanca", category: "frutas_tomates", price: 6000, unit: "Kilo", icon: "🧅" },
-            { id: 404, name: "Cebolla Roja / Ocañera", category: "frutas_tomates", price: 2800, unit: "Kilo", icon: "🧅" },
-            { id: 405, name: "Limón Tahití Jugoso", category: "frutas_tomates", price: 2500, unit: "Kilo", icon: "🍋" },
-            { id: 406, name: "Aguacate Hass / papelillo", category: "frutas_tomates", price: 4500, unit: "Kilo", icon: "🥑" },
-            { id: 407, name: "arepa chocolo / papelillo", category: "frutas_tomates", price: 4500, unit: "paquete", icon: "🌽" },
+            // FRUTAS Y OTROS
+            { id: 401, name: "Albahaca Fresca", category: "frutas_tomates", price: 36000, unit: "Kilo", icon: "🌿" },
+            { id: 402, name: "Almendra", category: "frutas_tomates", price: 18000, unit: "Paq x200grs", icon: "🌰" },
+            { id: 403, name: "Almendra Laminada", category: "frutas_tomates", price: 9600, unit: "Paq x100grs", icon: "🌰" },
+            { id: 404, name: "Arándanos Deshidratados", category: "frutas_tomates", price: 16800, unit: "Paq x200gr", icon: "🫐" },
+            { id: 405, name: "Arándanos Frescos", category: "frutas_tomates", price: 10800, unit: "Empaque 125grs", icon: "🫐" },
+            { id: 406, name: "Bicarbonato", category: "frutas_tomates", price: 2400, unit: "Sobre x35gr", icon: "🧂" },
+            { id: 407, name: "Canela", category: "frutas_tomates", price: 3000, unit: "Sobre x10gr", icon: "🪵" },
+            { id: 408, name: "Chocolate Chucureño", category: "frutas_tomates", price: 16800, unit: "Pastilla 250gr", icon: "🍫" },
+            { id: 409, name: "Chocolate Chucureño Sin Azúcar", category: "frutas_tomates", price: 24000, unit: "Pastilla", icon: "🍫" },
+            { id: 410, name: "Chocolate de Bola", category: "frutas_tomates", price: 18000, unit: "Aprox 10 bolitas", icon: "🍫" },
+            { id: 411, name: "Ciruela Nacional", category: "frutas_tomates", price: 3600, unit: "Band Peq", icon: "🍑" },
+            { id: 412, name: "Ciruela Pasa", category: "frutas_tomates", price: 8400, unit: "100gr", icon: "🍑" },
+            { id: 413, name: "Coco grande", category: "frutas_tomates", price: 9600, unit: "Unidad", icon: "🥥" },
+            { id: 414, name: "Coco pequeño", category: "frutas_tomates", price: 8400, unit: "Unidad", icon: "🥥" },
+            { id: 415, name: "Corozo", category: "frutas_tomates", price: 9600, unit: "Kilo", icon: "🍒" },
+            { id: 416, name: "Cubios", category: "frutas_tomates", price: 4800, unit: "Paq x 1/2 lb", icon: "🥔" },
+            { id: 417, name: "Curuba", category: "frutas_tomates", price: 12000, unit: "Kilo", icon: "🍈" },
+            { id: 418, name: "Durazno Colombiano", category: "frutas_tomates", price: 12000, unit: "Kilo", icon: "🍑" },
+            { id: 419, name: "Fresa", category: "frutas_tomates", price: 12000, unit: "Bandeja 1lb", icon: "🍓" },
+            { id: 420, name: "Fresa a granel", category: "frutas_tomates", price: 28800, unit: "Kilo", icon: "🍓" },
+            { id: 421, name: "Fresa Congelada", category: "frutas_tomates", price: 18000, unit: "Kilo", icon: "🍓" },
+            { id: 422, name: "Granadilla", category: "frutas_tomates", price: 24000, unit: "Kilo", icon: "🍈" },
+            { id: 423, name: "Guanabana", category: "frutas_tomates", price: 10800, unit: "Kilo", icon: "🍈" },
+            { id: 424, name: "Guayaba", category: "frutas_tomates", price: 7200, unit: "Kilo", icon: "🍐" },
+            { id: 425, name: "Guayaba Agria", category: "frutas_tomates", price: 10800, unit: "Kilo", icon: "🍐" },
+            { id: 426, name: "Guayaba Feijoa", category: "frutas_tomates", price: 12000, unit: "Kilo", icon: "🍐" },
+            { id: 427, name: "Hierbabuena", category: "frutas_tomates", price: 36000, unit: "Kilo", icon: "🌿" },
+            { id: 428, name: "Huevos AA", category: "frutas_tomates", price: 20400, unit: "Cartón x 30", icon: "🥚" },
+            { id: 429, name: "Huevos Jumbo", category: "frutas_tomates", price: 32400, unit: "Cartón x 30", icon: "🥚" },
+            { id: 430, name: "Kiwi", category: "frutas_tomates", price: 28800, unit: "Kilo", icon: "🥝" },
+            { id: 431, name: "Limón Común", category: "frutas_tomates", price: 9600, unit: "Kilo", icon: "🍋" },
+            { id: 432, name: "Limón Mandarino", category: "frutas_tomates", price: 10800, unit: "Kilo", icon: "🍋" },
+            { id: 433, name: "Limón Tahití", category: "frutas_tomates", price: 7200, unit: "Kilo", icon: "🍋" },
+            { id: 434, name: "Lulo", category: "frutas_tomates", price: 12000, unit: "Kilo", icon: "🍊" },
+            { id: 435, name: "Mandarina", category: "frutas_tomates", price: 12000, unit: "Kilo", icon: "🍊" },
+            { id: 436, name: "Mango de Azucar", category: "frutas_tomates", price: 14400, unit: "Kilo", icon: "🥭" },
+            { id: 437, name: "Mango Tommy", category: "frutas_tomates", price: 14400, unit: "Kilo", icon: "🥭" },
+            { id: 438, name: "Maní Salado", category: "frutas_tomates", price: 18000, unit: "Paq x 500gr", icon: "🥜" },
+            { id: 439, name: "Manzana Roja", category: "frutas_tomates", price: 3000, unit: "Unidad", icon: "🍎" },
+            { id: 440, name: "Manzana Royal", category: "frutas_tomates", price: 3000, unit: "Unidad", icon: "🍎" },
+            { id: 441, name: "Manzana Verde", category: "frutas_tomates", price: 3000, unit: "Unidad", icon: "🍏" },
+            { id: 442, name: "Manzanilla Fresca", category: "frutas_tomates", price: 36000, unit: "Kilo", icon: "🌼" },
+            { id: 443, name: "Maracuyá", category: "frutas_tomates", price: 7200, unit: "Kilo", icon: "🍊" },
+            { id: 444, name: "Melón Cantalupe", category: "frutas_tomates", price: 6000, unit: "Kilo", icon: "🍈" },
+            { id: 445, name: "Mora Grande", category: "frutas_tomates", price: 5400, unit: "Paq", icon: "🫐" },
+            { id: 446, name: "Naranja", category: "frutas_tomates", price: 960, unit: "Unidad", icon: "🍊" },
+            { id: 447, name: "Naranja Tangelo Importada", category: "frutas_tomates", price: 24000, unit: "Kilo", icon: "🍊" },
+            { id: 448, name: "Naranja Tangelo Nacional", category: "frutas_tomates", price: 14400, unit: "Kilo", icon: "🍊" },
+            { id: 449, name: "Níspero", category: "frutas_tomates", price: 16800, unit: "Kilo", icon: "🍑" },
+            { id: 450, name: "Nuez de Nogal", category: "frutas_tomates", price: 9600, unit: "Paq x 100gr", icon: "🌰" },
+            { id: 451, name: "Nuez Moscada", category: "frutas_tomates", price: 3000, unit: "Sobre x 1und", icon: "🌰" },
+            { id: 452, name: "Panela Redonda", category: "frutas_tomates", price: 7200, unit: "Paq x 2und", icon: "🧱" },
+            { id: 453, name: "Papaya", category: "frutas_tomates", price: 5400, unit: "Kilo", icon: "🍈" },
+            { id: 454, name: "Patilla Baby", category: "frutas_tomates", price: 5400, unit: "Kilo", icon: "🍉" },
+            { id: 455, name: "Patilla Llanera", category: "frutas_tomates", price: 4800, unit: "Kilo", icon: "🍉" },
+            { id: 456, name: "Pecanas", category: "frutas_tomates", price: 9600, unit: "Paq x 100gr", icon: "🥜" },
+            { id: 457, name: "Pera", category: "frutas_tomates", price: 3000, unit: "Unidad", icon: "🍐" },
+            { id: 458, name: "Piña Golden", category: "frutas_tomates", price: 7200, unit: "Kilo", icon: "🍍" },
+            { id: 459, name: "Pitaya", category: "frutas_tomates", price: 24000, unit: "Kilo", icon: "🍈" },
+            { id: 460, name: "Uchuva", category: "frutas_tomates", price: 4800, unit: "Canasta 250gr", icon: "🟡" },
+            { id: 461, name: "Uva Importada Roja", category: "frutas_tomates", price: 36000, unit: "Kilo", icon: "🍇" },
+            { id: 462, name: "Uva Importada Verde sin sem", category: "frutas_tomates", price: 48000, unit: "Kilo", icon: "🍇" },
+            { id: 463, name: "Zapote", category: "frutas_tomates", price: 16800, unit: "Kilo", icon: "🍑" },
 
-            // HIERBAS Y AROMÁTICAS
-            { id: 501, name: "Cilantro Fresco", category: "hierbas", price: 1000, unit: "Atado", icon: "🌿" },
-            { id: 502, name: "Perejil Liso / Crespo", category: "hierbas", price: 1200, unit: "Atado", icon: "🌿" },
-            { id: 503, name: "Albahaca Fresca", category: "hierbas", price: 1500, unit: "Atado", icon: "🌿" },
-            { id: 504, name: "Apio en Rama", category: "hierbas", price: 2000, unit: "Atado", icon: "🌿" }
+            // CHILES Y PICANTES
+            { id: 501, name: "Jalapeño", category: "hierbas", price: 36000, unit: "Kilo", icon: "🌶️" },
+            { id: 502, name: "Habanero", category: "hierbas", price: 48000, unit: "Kilo", icon: "🌶️" },
+            { id: 503, name: "Serrano", category: "hierbas", price: 36000, unit: "Kilo", icon: "🌶️" },
+            { id: 504, name: "Ají Amarillo Peruano", category: "hierbas", price: 48000, unit: "Kilo", icon: "🌶️" }
         ];
 
         // CATEGORÍAS
@@ -320,9 +446,9 @@
             { id: "all", name: "Todos", icon: "grid" },
             { id: "combos", name: "🧺 Combos Promocionales", icon: "package" },
             { id: "hortalizas", name: "🥦 Hortalizas & Verduras", icon: "leaf" },
-            { id: "tuberculos", name: "🥔 Tubérculos & Legumbres", icon: "box" },
-            { id: "frutas_tomates", name: "🍅 Tomates & Cebollas", icon: "apple" },
-            { id: "hierbas", name: "🌿 Hierbas & Aromáticas", icon: "flower2" }
+            { id: "tuberculos", name: "🥔 Tubérculos & Frutos", icon: "box" },
+            { id: "frutas_tomates", name: "🍅 Frutas & Abarrotes", icon: "apple" },
+            { id: "hierbas", name: "🌶️ Chiles & Picantes", icon: "flower2" }
         ];
 
         // ESTADO DE LA APLICACIÓN
@@ -381,7 +507,6 @@
                         ${item.badge ? `<span class="absolute top-2 right-2 bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full z-10 shadow-xs animate-pulse">${item.badge}</span>` : ''}
                         
                         <div>
-                            <!-- Contenedor del icono con efecto de zoom -->
                             <div class="w-full h-28 bg-emerald-50/60 rounded-xl flex items-center justify-center text-4xl mb-3 shadow-inner group-hover:scale-110 group-hover:bg-emerald-100/80 transition-all duration-300">
                                 ${item.icon}
                             </div>

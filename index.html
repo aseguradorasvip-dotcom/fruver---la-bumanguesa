@@ -51,7 +51,7 @@
             animation: fadeInUp 0.4s ease-out forwards;
         }
 
-        /* Clases utilitarias de color para Emojis */
+        /* Clases utilitarias de color con Filtros CSS para Emojis */
         .emoji-green {
             filter: hue-rotate(85deg) saturate(180%) brightness(95%);
         }
@@ -494,7 +494,7 @@
             document.getElementById('currentCategoryTitle').innerText = selectedCat ? selectedCat.name : "Todos los Productos";
         }
 
-        // RENDERIZAR PRODUCTOS
+        // RENDERIZAR PRODUCTOS (CORREGIDO PARA APLICAR LAS CLASES DE COLOR EN LA GRILLA)
         function renderProducts(filtered = null) {
             const list = filtered || (currentCategory === "all" ? products : products.filter(p => p.category === currentCategory));
             const grid = document.getElementById('productsGrid');

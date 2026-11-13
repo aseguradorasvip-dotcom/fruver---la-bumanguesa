@@ -6,7 +6,7 @@
     <title>Mercado Fresco del Campo | Fruver Directo a tu Hogar</title>
 
     <!-- Configuración PWA para Celulares (Instalable) -->
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Del%20Campo%20Fresco%22,%22short_name%22:%22Fruver%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22#15803D%22,%22theme_color%22:%22#15803D%22,%22icons%22:[{%22src%22:%22https://cdn-icons-png.flaticon.com/512/1202/1202125.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}"/>
+    <link rel="manifest" href='data:application/manifest+json,{"name":"Del Campo Fresco","short_name":"Fruver","start_url":".","display":"standalone","background_color":"#15803D","theme_color":"#15803D","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/1202/1202125.png","sizes":"512x512","type":"image/png"}]}'/>
     <meta name="theme-color" content="#15803D">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -264,7 +264,7 @@
         const MERCHANT_WHATSAPP = "573013239366"; 
         const SHIPPING_FEE = 12000;
 
-        // BASE DE DATOS DE PRODUCTOS CON IMÁGENES REALES Y PRECIOS +20%
+        // BASE DE DATOS DE PRODUCTOS
         const products = [
             // COMBOS Y PROMOCIONES
             { id: 101, name: "Mercado Familiar Semanal", category: "combos", price: 54000, unit: "Combo", image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=500&q=80", desc: "Incluye papa, yuca, plátano, zanahoria, cebolla, tomate, cilantro y frutas.", badge: "Ahorro 15%" },
@@ -341,7 +341,7 @@
             { id: 309, name: "Picante", category: "tuberculos", price: 4800, unit: "Botella", image: "https://images.unsplash.com/photo-1588837898263-030648c08cb4?auto=format&fit=crop&w=500&q=80" },
             { id: 310, name: "Picante Fresco", category: "tuberculos", price: 36000, unit: "Kilo", image: "https://images.unsplash.com/photo-1588837898263-030648c08cb4?auto=format&fit=crop&w=500&q=80" },
             { id: 311, name: "Pimentón Amarillo", category: "tuberculos", price: 16800, unit: "Kilo", image: "https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?auto=format&fit=crop&w=500&q=80" },
-            { id: 312, name: "Pimentón Rojo", category: "tuberculos", price: 12000, unit: "Kilo", image: "https://images".pimenton.jpg" },
+            { id: 312, name: "Pimentón Rojo", category: "tuberculos", price: 12000, unit: "Kilo", image: "pimenton.jpg" },
             { id: 313, name: "Pimentón Verde", category: "tuberculos", price: 12000, unit: "Kilo", image: "https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?auto=format&fit=crop&w=500&q=80" },
             { id: 314, name: "Plátano amarillo", category: "tuberculos", price: 1800, unit: "Unidad", image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=500&q=80" },
             { id: 315, name: "Plátano verde", category: "tuberculos", price: 1800, unit: "Unidad", image: "https://images.unsplash.com/photo-1603052875302-d376b7c0638a?auto=format&fit=crop&w=500&q=80" },

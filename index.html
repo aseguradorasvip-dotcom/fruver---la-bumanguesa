@@ -644,6 +644,36 @@
             const subtotal = cart.reduce((acc, curr) => acc + (curr.product.price * curr.qty), 0);
             const grandTotal = subtotal + SHIPPING_FEE;
 
+            // Armar detalle de productos para el correo y la hoja
+            let itemsText = "";
+            cart.forEach(item => {
+                itemsText += `- ${item.product.name} x${item.qty} ${item.product.unit} (${formatCOP(item.product.price * item.qty)})\n`;
+            });
+
+            // OBJETO CON LOS DATOS PARA EL RESPALDO AUTOMÁTICO
+            const orderData = {
+                name: name,
+                phone: phone,
+                address: address,
+                neighborhood: neighborhood,
+                payment: payment,
+                total: formatCOP(grandTotal),
+                itemsDetail: itemsText + (notes ? "\nNotas: " + notes : "")
+            };
+
+            // ENVIAR RESPALDO A GOOGLE SHEETS / CORREO EN SEGUNDO PLANO
+            const WEB_APP_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT"; // <--- Recuerda cambiar esto por tu enlace de Google Apps Script
+            
+            if (WEB_APP_URL && WEB_APP_URL !== "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT") {
+                fetch(WEB_APP_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(orderData)
+                }).catch(err => console.log("Error enviando respaldo:", err));
+            }
+
+            // ARMAR MENSAJE DE WHATSAPP PARA EL PROVEEDOR
             let msg = `🛒 *NUEVO PEDIDO DE MERCADO DE CAMPO*\n`;
             msg += `------------------------------------\n`;
             msg += `👤 *Cliente:* ${name}\n`;

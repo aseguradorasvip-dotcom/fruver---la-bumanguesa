@@ -259,13 +259,13 @@
         <span id="toastMsg">Mensaje</span>
     </div>
 
-    <!-- JAVASCRIPT DE LÓGICA DE TIENDA CON DOBLE WHATSAPP -->
+    <!-- JAVASCRIPT DE LÓGICA DE TIENDA CON DOBLE WHATSAPP OPTIMIZADO -->
     <script>
         // NÚMERO DEL PROVEEDOR
-        const MERCHANT_WHATSAPP = "573204627294"; 
+        const MERCHANT_WHATSAPP = "573013239366"; 
         
         // TU NÚMERO PERSONAL DE RESPALDO (SEGUIMIENTO)
-        const MY_CONTROL_WHATSAPP = "573013239366"; // <--- Puedes cambiar este si tu número personal es diferente
+        const MY_CONTROL_WHATSAPP = "573013239366"; 
 
         const SHIPPING_FEE = 12000;
 
@@ -384,7 +384,7 @@
             { id: 409, name: "Chocolate Chucureño Sin Azúcar", category: "frutas_tomates", price: 24000, unit: "Pastilla", image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=500&q=80" },
             { id: 410, name: "Chocolate de Bola", category: "frutas_tomates", price: 18000, unit: "Aprox 10 bolitas", image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=500&q=80" },
             { id: 411, name: "Ciruela Nacional", category: "frutas_tomates", price: 3600, unit: "Band Peq", image: "https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=500&q=80" },
-            { id: 412, name: "Ciruela Pasa", category: "frutas_tomates", price: 8400, unit: "100gr", image: "ciruelapasa.jpg" },
+            { id: 412, name: "Ciruela Pasa", category: "frutas_tomates", price: 8400, unit: "100gr", image: "https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=500&q=80" },
             { id: 413, name: "Coco grande", category: "frutas_tomates", price: 9600, unit: "Unidad", image: "cocogrande.jpg" },
             { id: 414, name: "Coco pequeño", category: "frutas_tomates", price: 8400, unit: "Unidad", image: "cocopequeño.jpg" },
             { id: 415, name: "Corozo", category: "frutas_tomates", price: 9600, unit: "Kilo", image: "corozo.jpg" },
@@ -676,11 +676,11 @@
             const merchantUrl = `https://wa.me/${MERCHANT_WHATSAPP}?text=${encodeURIComponent(msg)}`;
             window.open(merchantUrl, '_blank');
 
-            // 2. ABRIR WHATSAPP DE TU RESPALDO PERSONAL AUTOMÁTICAMENTE
+            // 2. ABRIR WHATSAPP DE TU RESPALDO PERSONAL CON UN LEVE RETARDO PARA EVITAR BLOQUEO DEL NAVEGADOR
             setTimeout(() => {
                 const controlUrl = `https://wa.me/${MY_CONTROL_WHATSAPP}?text=${encodeURIComponent("📋 *[COPIA DE CONTROL DE PEDIDO]*\n\n" + msg)}`;
                 window.open(controlUrl, '_blank');
-            }, 800);
+            }, 1200);
         }
 
         function copyStoreLink() {

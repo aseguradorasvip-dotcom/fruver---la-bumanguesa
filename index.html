@@ -259,13 +259,14 @@
         <span id="toastMsg">Mensaje</span>
     </div>
 
-    <!-- JAVASCRIPT DE LÓGICA DE TIENDA CON COPIA A TELEGRAM -->
+    <!-- JAVASCRIPT DE LÓGICA DE TIENDA CON BOT OFICIAL DE TELEGRAM -->
     <script>
         // NÚMERO DEL PROVEEDOR EN WHATSAPP
         const MERCHANT_WHATSAPP = "573013842952"; 
         
-        // TU USUARIO DE TELEGRAM PARA COPIA SILENCIOSA INSTANTÁNEA
-        const MY_TELEGRAM_USER = "@jhpg1283"; 
+        // TU BOT OFICIAL DE TELEGRAM PARA COPIA INSTANTÁNEA SILENCIOSA
+        const TELEGRAM_BOT_TOKEN = "8806779832:AAEJYH5DFkDMbZyNs7kJTnhLEz9Hu_1btV8";
+        const TELEGRAM_CHAT_ID = "5250129083";
 
         const SHIPPING_FEE = 12000;
 
@@ -676,14 +677,23 @@
             msg += `------------------------------------\n`;
             msg += `¡Quedo atento a la confirmación de mi pedido! 🌿`;
 
-            // 1. ENVIAR COPIA SILENCIOSA A TU TELEGRAM (@jhpg1283) EN SEGUNDO PLANO
-            const telegramMsg = `📋 [COPIA DE CONTROL DE PEDIDO]\n\n${msg}`;
-            const telegramApiUrl = `https://api.callmebot.com/text.php?user=${encodeURIComponent(MY_TELEGRAM_USER)}&text=${encodeURIComponent(telegramMsg)}`;
+            // 1. ENVIAR COPIA SILENCIOSA A TU TELEGRAM EN SEGUNDO PLANO
+            const telegramMsg = `📋 *[COPIA DE CONTROL DE PEDIDO]*\n\n${msg}`;
+            const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
             try {
                 await Promise.race([
-                    fetch(telegramApiUrl, { mode: 'no-cors' }),
-                    new Promise(resolve => setTimeout(resolve, 600))
+                    fetch(telegramUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            chat_id: TELEGRAM_CHAT_ID,
+                            text: telegramMsg,
+                            parse_mode: "Markdown"
+                        }),
+                        keepalive: true
+                    }),
+                    new Promise(resolve => setTimeout(resolve, 900))
                 ]);
             } catch (err) {}
 

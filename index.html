@@ -201,79 +201,53 @@
                     </div>
                 </div>
 
-                <div id="orderSectionWrapper">
-                    <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-3">
-                        <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider flex items-center gap-1">
-                            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-600"></i> Datos de Entrega
-                        </h4>
+                <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-3">
+                    <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider flex items-center gap-1">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-600"></i> Datos de Entrega
+                    </h4>
 
+                    <div>
+                        <input type="text" id="custName" required placeholder="Nombre completo" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="tel" id="custPhone" required placeholder="Teléfono WhatsApp" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <input type="text" id="custNeighborhood" required placeholder="Barrio" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div>
+                        <input type="text" id="custAddress" required placeholder="Dirección exacta de entrega (ej: Cra 10 # 45-20 Ap 301)" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <input type="text" id="custName" required placeholder="Nombre completo" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">Método de Pago</label>
+                            <select id="paymentMethod" class="w-full px-2.5 py-2 text-xs rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-500">
+                                <option value="Efectivo contra entrega">Efectivo contra entrega</option>
+                                <option value="Nequi">Nequi</option>
+                                <option value="Bancolombia">Bancolombia</option>
+                                <option value="Daviplata">Daviplata</option>
+                            </select>
                         </div>
-
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="tel" id="custPhone" required placeholder="Teléfono WhatsApp" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                            <input type="text" id="custNeighborhood" required placeholder="Barrio" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                        </div>
-
                         <div>
-                            <input type="text" id="custAddress" required placeholder="Dirección exacta de entrega (ej: Cra 10 # 45-20 Ap 301)" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-500 mb-1">Método de Pago</label>
-                                <select id="paymentMethod" class="w-full px-2.5 py-2 text-xs rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-500">
-                                    <option value="Efectivo contra entrega">Efectivo contra entrega</option>
-                                    <option value="Nequi">Nequi</option>
-                                    <option value="Bancolombia">Bancolombia</option>
-                                    <option value="Daviplata">Daviplata</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold text-slate-500 mb-1">Horario Preferido</label>
-                                <select id="deliveryTime" class="w-full px-2.5 py-2 text-xs rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-500">
-                                    <option value="Lo antes posible">Lo antes posible</option>
-                                    <option value="Mañana (8am - 12pm)">Mañana (8am - 12pm)</option>
-                                    <option value="Tarde (2pm - 6pm)">Tarde (2pm - 6pm)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <textarea id="custNotes" rows="2" placeholder="Notas especiales (ej. 'Plátanos maduros', 'Tomates no muy verdes')" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
-                            <i data-lucide="send" class="w-4 h-4 text-amber-300"></i>
-                            <span>Enviar Pedido por WhatsApp</span>
-                        </button>
-                    </form>
-
-                    <!-- PANEL DE DOBLE CONFIRMACIÓN (APARECE AL ENVIAR PARA ASEGURAR LA COPIA) -->
-                    <div id="postOrderConfirmBox" class="hidden p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-3 text-center">
-                        <div class="flex items-center justify-center gap-2 text-emerald-900 font-extrabold text-xs">
-                            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600"></i>
-                            <span>¡Pedido enviado al proveedor!</span>
-                        </div>
-                        <p id="redirectCountdownText" class="text-[11px] text-slate-600">
-                            Abriendo copia de control en <strong id="countdownSeconds">3</strong> segundos...
-                        </p>
-                        <div class="grid grid-cols-1 gap-2 pt-1">
-                            <a id="btnManualControl" href="#" target="_blank" class="w-full bg-slate-900 hover:bg-slate-800 text-amber-300 font-extrabold py-3 px-4 rounded-xl shadow flex items-center justify-center gap-2 text-xs uppercase tracking-wider">
-                                <i data-lucide="copy-check" class="w-4 h-4"></i>
-                                <span>Enviar Copia de Control Ahora</span>
-                            </a>
-                            <a id="btnManualMerchant" href="#" target="_blank" class="w-full bg-white hover:bg-slate-100 text-emerald-800 border border-emerald-300 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs">
-                                <i data-lucide="repeat" class="w-3.5 h-3.5"></i>
-                                <span>Volver a abrir chat del Proveedor</span>
-                            </a>
-                            <button type="button" onclick="resetOrderView()" class="text-[11px] text-slate-500 underline pt-1">
-                                Hacer otro pedido
-                            </button>
+                            <label class="block text-[10px] font-bold text-slate-500 mb-1">Horario Preferido</label>
+                            <select id="deliveryTime" class="w-full px-2.5 py-2 text-xs rounded-lg border border-slate-300 bg-white focus:ring-2 focus:ring-emerald-500">
+                                <option value="Lo antes posible">Lo antes posible</option>
+                                <option value="Mañana (8am - 12pm)">Mañana (8am - 12pm)</option>
+                                <option value="Tarde (2pm - 6pm)">Tarde (2pm - 6pm)</option>
+                            </select>
                         </div>
                     </div>
-                </div>
+
+                    <div>
+                        <textarea id="custNotes" rows="2" placeholder="Notas especiales (ej. 'Plátanos maduros', 'Tomates no muy verdes')" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+                        <i data-lucide="send" class="w-4 h-4 text-amber-300"></i>
+                        <span>Enviar Pedido por WhatsApp</span>
+                    </button>
+                </form>
 
             </div>
         </div>
@@ -285,16 +259,13 @@
         <span id="toastMsg">Mensaje</span>
     </div>
 
-    <!-- JAVASCRIPT DE LÓGICA DE TIENDA CON DOBLE WHATSAPP CORREGIDO -->
+    <!-- JAVASCRIPT DE LÓGICA DE TIENDA CON DOBLE WHATSAPP OPTIMIZADO -->
     <script>
         // NÚMERO DEL PROVEEDOR
-        const MERCHANT_WHATSAPP = "573013842952"; 
+        const MERCHANT_WHATSAPP = "573008400119"; 
         
         // TU NÚMERO PERSONAL DE RESPALDO (SEGUIMIENTO)
         const MY_CONTROL_WHATSAPP = "573013239366"; 
-
-        // OPCIONAL: URL de Google Apps Script si luego quieres guardar cada pedido en Google Sheets automáticamente
-        const GOOGLE_SCRIPT_URL = "";
 
         const SHIPPING_FEE = 12000;
 
@@ -483,8 +454,7 @@
         ];
 
         let currentCategory = "all";
-        let cart = [];
-        let redirectTimer = null;
+        let cart = []; 
 
         window.onload = function() {
             renderCategories();
@@ -534,6 +504,7 @@
                         ${item.badge ? `<span class="absolute top-2 right-2 bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full z-10 shadow-xs animate-pulse">${item.badge}</span>` : ''}
                         
                         <div>
+                            <!-- Fotografía Real Optimizada -->
                             <div class="w-full h-32 bg-slate-100 rounded-xl overflow-hidden mb-3 shadow-inner">
                                 <img src="${item.image}" alt="${item.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                             </div>
@@ -660,15 +631,6 @@
             }
         }
 
-        function resetOrderView() {
-            if (redirectTimer) {
-                clearInterval(redirectTimer);
-                redirectTimer = null;
-            }
-            document.getElementById('orderForm').classList.remove('hidden');
-            document.getElementById('postOrderConfirmBox').classList.add('hidden');
-        }
-
         function submitOrder(e) {
             e.preventDefault();
             if (cart.length === 0) {
@@ -713,54 +675,13 @@
             const merchantUrl = `https://wa.me/${MERCHANT_WHATSAPP}?text=${encodeURIComponent(msg)}`;
             const controlUrl = `https://wa.me/${MY_CONTROL_WHATSAPP}?text=${encodeURIComponent("📋 *[COPIA DE CONTROL DE PEDIDO]*\n\n" + msg)}`;
 
-            // Si tienes Google Sheets configurado, también guarda respaldo silencioso
-            if (GOOGLE_SCRIPT_URL) {
-                try {
-                    fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify({
-                            fecha: new Date().toLocaleString('es-CO'),
-                            cliente: name,
-                            telefono: phone,
-                            direccion: `${address} (${neighborhood})`,
-                            pago: payment,
-                            horario: deliveryTime,
-                            notas: notes,
-                            productos: cart.map(i => `${i.product.name} x${i.qty}`).join(', '),
-                            total: grandTotal
-                        })
-                    });
-                } catch (err) {}
-            }
-
-            // Configurar botones de respaldo visibles en pantalla
-            document.getElementById('btnManualMerchant').href = merchantUrl;
-            document.getElementById('btnManualControl').href = controlUrl;
-            document.getElementById('orderForm').classList.add('hidden');
-            document.getElementById('postOrderConfirmBox').classList.remove('hidden');
-            lucide.createIcons();
-
-            // 1. ENVIAR PRIMERO AL PROVEEDOR DE INMEDIATO
+            // 1. PRIMER DISPARO INMEDIATO AL PROVEEDOR
             window.open(merchantUrl, '_blank');
 
-            // 2. A LOS 3 SEGUNDOS REDIRIGIR AUTOMÁTICAMENTE A TU COPIA DE CONTROL (window.location.href evita bloqueo de pop-up)
-            let secondsLeft = 3;
-            document.getElementById('countdownSeconds').textContent = secondsLeft;
-            if (redirectTimer) clearInterval(redirectTimer);
-
-            redirectTimer = setInterval(() => {
-                secondsLeft -= 1;
-                if (secondsLeft > 0) {
-                    document.getElementById('countdownSeconds').textContent = secondsLeft;
-                } else {
-                    clearInterval(redirectTimer);
-                    redirectTimer = null;
-                    document.getElementById('redirectCountdownText').textContent = "Redirigiendo a tu copia de control...";
-                    window.location.href = controlUrl;
-                }
-            }, 1000);
+            // 2. SEGUNDO DISPARO RÁPIDO (500ms) CON window.open HACIA TU WHATSAPP
+            setTimeout(() => {
+                window.open(controlUrl, '_blank');
+            }, 500);
         }
 
         function copyStoreLink() {
